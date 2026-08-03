@@ -15,7 +15,7 @@
       --cell-gap: 4px;
       --num-rows: 5;
       --wall-height: calc(var(--cell-size) * var(--num-rows) + var(--cell-gap) * (var(--num-rows) - 1));
-      --bench-height: 180px;
+      --bench-height: 260px;
     }
 
     /* ── HERO ── */
@@ -200,8 +200,8 @@
     }
     .bench-img {
       display: block;
-      width: 38%;
-      max-width: 460px;
+      width: 55%;
+      max-width: 650px;
       filter: none;
       position: absolute;
       bottom: 0;
@@ -516,7 +516,7 @@
           const dir = r % 2 === 0 ? -1 : 1;
           const half = row.scrollWidth / 2;
           let pos = dir === -1 ? 0 : -half;
-          const speed = 0.18 + r * 0.03;
+          const speed = 0.08 + r * 0.02;
 
           function tick() {
             pos += dir * speed;
