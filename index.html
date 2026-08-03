@@ -92,6 +92,8 @@
       overflow: hidden;
       min-height: 0;
       z-index: 1;
+      margin-bottom: -210px;
+      padding-bottom: 210px;
     }
 
     /* Left/right fades */
@@ -179,12 +181,14 @@
     .bench-wrap {
       position: relative;
       z-index: 30;
-      background: #fff;
+      background: transparent;
       display: flex;
       justify-content: center;
       align-items: flex-end;
       flex: 0 0 auto;
-      height: 240px;
+      height: 210px;
+      margin-top: -210px;
+      pointer-events: none;
     }
     .bench-img {
       display: block;
@@ -462,7 +466,7 @@
 
       // ── FACE WALL ──
       const wall = document.getElementById('faceWall');
-      const numRows = 4;
+      const numRows = 5;
       const rowEls = [];
       for (let r = 0; r < numRows; r++) {
         const row = document.createElement('div');
