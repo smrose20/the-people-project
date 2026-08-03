@@ -40,13 +40,14 @@
       z-index: 5;
       pointer-events: none;
     }
-    .hero-fade-top    { top: 0;    background: linear-gradient(to bottom, #fff, transparent); }
-    .hero-fade-bottom { bottom: 0; background: linear-gradient(to top,   #fff, transparent); }
+    .hero-fade-top    { top: 0; height: 160px; background: linear-gradient(to bottom, #fff 60%, transparent); }
+    .hero-fade-bottom { bottom: 0; height: 220px; background: linear-gradient(to top, #fff 55%, transparent); }
 
     /* Grid of rows scrolling left/right */
     .face-wall {
       position: absolute;
-      inset: 0;
+      top: 0; left: 0; right: 0;
+      bottom: 200px;
       display: flex;
       flex-direction: column;
       gap: 6px;
@@ -121,7 +122,7 @@
       position: absolute; top: 0; left: 0; right: 0;
       z-index: 20; text-align: center;
       padding: 32px 24px 20px;
-      background: linear-gradient(to bottom, rgba(255,255,255,0.96) 55%, transparent 100%);
+      background: #fff;
     }
     .site-eyebrow {
       font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
