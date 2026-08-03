@@ -7,12 +7,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; overflow: hidden; font-family: 'Lato', sans-serif; background: #fff; color: #111; }
+    html, body { height: 100%; overflow: auto; font-family: 'Lato', sans-serif; background: #fff; color: #111; }
 
     /* ── HERO — full viewport, no scroll ── */
     .hero {
-      position: fixed;
-      inset: 0;
+      position: relative;
+      width: 100%;
+      height: 100vh;
       background: #fff;
       display: flex;
       flex-direction: column;
@@ -180,7 +181,7 @@
       justify-content: center;
       align-items: flex-end;
       flex: 0 0 auto;
-      padding-top: 0;
+      margin-bottom: -60px;
     }
     .bench-img {
       display: block;
@@ -238,6 +239,46 @@
     .entry-date { font-size: 11px; color: #aaa; }
     .entry-preview { font-size: 12px; color: #777; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .no-results { text-align: center; color: #aaa; padding: 40px 0; }
+
+    /* ── ABOUT SECTION ── */
+    .about-section {
+      background: #fff;
+      border-top: 1px solid #ddd;
+      padding: 64px 24px 80px;
+    }
+    .about-inner {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .about-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 400;
+      color: #111;
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+    .about-body p {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: #333;
+      margin-bottom: 24px;
+    }
+    .about-note {
+      margin-top: 40px;
+      padding: 20px 24px;
+      border-left: 3px solid #111;
+      background: #f9f9f9;
+    }
+    .about-note p {
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: #555;
+      margin-bottom: 0;
+    }
+    .about-note a { color: #111; }
+    footer { background: #fff; border-top: 1px solid #ddd; text-align: center; padding: 28px; font-size: 11px; color: #aaa; letter-spacing: 0.06em; }
 
     /* ── MODAL ── */
     .modal-backdrop {
@@ -386,7 +427,7 @@
 
     async function init() {
       const people = await loadPeople();
-      const latest5 = people.slice(0, 5);
+      const latest10 = people.slice(0, 10);
 
       // ── ALL ENTRIES PAGE ──
       const list = document.getElementById('entriesList');
@@ -416,7 +457,7 @@
 
       // ── FACE WALL ──
       const wall = document.getElementById('faceWall');
-      const numRows = 4;
+      const numRows = 5;
       const rowEls = [];
       for (let r = 0; r < numRows; r++) {
         const row = document.createElement('div');
@@ -439,10 +480,10 @@
             const label = document.createElement('div');
             label.className = 'past-label-cell';
             label.style.width = cellH + 'px';
-            label.innerHTML = `<p>Past 5<br>Entries</p>`;
+            label.innerHTML = `<p>Latest<br>Entries</p>`;
             row.appendChild(label);
-            // Latest 5
-            latest5.forEach(p => row.appendChild(makeCell(p, cellH)));
+            // Latest 10
+            latest10.forEach(p => row.appendChild(makeCell(p, cellH)));
             // Fill
             const sh = shuffle(people);
             for (let i = 0; i < needed; i++) row.appendChild(makeCell(sh[i%sh.length], cellH));
@@ -455,7 +496,7 @@
           const dir = r % 2 === 0 ? -1 : 1;
           const half = row.scrollWidth / 2;
           let pos = dir === -1 ? 0 : -half;
-          const speed = 0.45 + r * 0.08;
+          const speed = 0.18 + r * 0.03;
 
           function tick() {
             pos += dir * speed;
@@ -471,5 +512,25 @@
 
     init();
   </script>
+  <!-- ABOUT -->
+  <div class="about-section">
+    <div class="about-inner">
+      <h2 class="about-title">About This Project</h2>
+      <div class="about-body">
+        <p>There was an activity that I did in high school, which had a profound impact on me. We wrote our names on the top of a paper and passed it to the person on our left. The person then had to write something nice about the person whose name was on the top of the paper, then pass it left. The complimenting and pass left kept going until everyone in the class wrote something nice about everyone. There were about 25 people in the class so we received 25 different compliments from 25 different people.</p>
+        <p>Years later, I had a job I didn't like and worked with people who didn't welcome me as part of the team. I had a tough time. After I changed jobs, I couldn't keep those people off my mind, so I decided to write anonymous letters to every single person at that company and tell them the good qualities that I appreciated about them and send it to them. That project took me over a year, but penning those letters was a feeling that made me grateful to be human. I found that even though I didn't like being in that environment, there was always value in it because people were there and people are valuable.</p>
+        <p>Sometime later, I ended up talking with my mom about my writing the letters, and we agreed on a new project; set a time each day, call each other and pray for someone new. I went through every contact on my phone (around 200 at that time) and Facebook when I had it (another 300 contacts or so) and messaged them, saying something like, "Hey! I respect your beliefs, and I'm not trying to push anything on you, but I just wanted to inform you that my mom and I are Christians and we pray every day at 12:30 pm PST for someone. Today, you are that person. Have an amazing day."</p>
+        <p>We prayed for hundreds of people over hundreds of days, and every single person that responded from every belief was appreciative I let them know.</p>
+        <p>It's hard to word how these projects of simply showing gratitude to people have moved me. This simple act of reflection time and again confirms what a wonderful life I truly have, and it's because of the amazing humans I come across. I pray my days walking this earth are many, but should my ending day come sooner than I hope, I want to have the satisfaction of knowing the people who were part of my life journey receive the message that they matter, they made a difference, they are appreciated, they are respected and they are loved. I want them to know how appreciated and essential they are.</p>
+        <p>I am not sure how often I will write about someone, but for the foreseeable future with no particular order, this will be my project; The People Project.</p>
+        <div class="about-note">
+          <p><strong>NOTE:</strong> If you are on this list and wish to remain anonymous or taken off, no hard feelings at all and I'm happy to take it down. Please just email me at <a href="mailto:steve@stevenmrose.com">steve@stevenmrose.com</a> and let me know if that's the case.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>&copy; <span id="year"></span> The People Project &nbsp;·&nbsp; by Steven M. Rose</footer>
+
 </body>
 </html>
