@@ -9,11 +9,19 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; overflow: auto; font-family: 'Lato', sans-serif; background: #fff; color: #111; }
 
-    /* ── HERO — full viewport, no scroll ── */
+    /* ── FIXED DIMENSIONS ── */
+    :root {
+      --cell-size: 160px;
+      --cell-gap: 4px;
+      --num-rows: 5;
+      --wall-height: calc(var(--cell-size) * var(--num-rows) + var(--cell-gap) * (var(--num-rows) - 1));
+      --bench-height: 180px;
+    }
+
+    /* ── HERO ── */
     .hero {
       position: relative;
       width: 100%;
-      min-height: 100vh;
       background: #fff;
       display: flex;
       flex-direction: column;
@@ -88,11 +96,12 @@
     /* Face wall — fills remaining space above bench */
     .face-wall-wrap {
       position: relative;
-      flex: 1 1 auto;
+      width: 100%;
+      height: var(--wall-height);
       overflow: hidden;
-      min-height: 0;
       z-index: 1;
-      margin-bottom: -180px;
+      flex: 0 0 auto;
+      margin-bottom: 0;
     }
 
     /* Left/right fades */
@@ -117,8 +126,8 @@
       display: flex;
       flex-direction: row;
       gap: 4px;
-      flex: 1;
-      min-height: 0;
+      height: 160px;
+      flex: 0 0 auto;
       will-change: transform;
     }
 
@@ -180,14 +189,14 @@
     .bench-wrap {
       position: relative;
       z-index: 30;
-      background: transparent;
+      background: #fff;
       display: flex;
       justify-content: center;
       align-items: flex-end;
       flex: 0 0 auto;
-      height: 180px;
+      height: var(--bench-height);
       pointer-events: none;
-      margin-top: -180px;
+      margin-top: 0;
     }
     .bench-img {
       display: block;
@@ -474,14 +483,12 @@
         rowEls.push(row);
       }
 
-      requestAnimationFrame(() => {
-        const wallH = wall.offsetHeight;
-        const gap = 4;
-        const cellH = Math.floor((wallH - gap*(numRows-1)) / numRows);
-        const needed = Math.ceil(window.innerWidth / (cellH+gap)) * 3 + 6;
+      const cellH = 160;
+      const gap = 4;
+      const needed = Math.ceil(window.innerWidth / (cellH + gap)) * 3 + 6;
 
-        rowEls.forEach((row, r) => {
-          row.style.height = cellH + 'px';
+      rowEls.forEach((row, r) => {
+        row.style.height = cellH + 'px';
 
           if (r === 0) {
             // Latest 10 scroll, label stays pinned on top
