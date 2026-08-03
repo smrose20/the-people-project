@@ -13,9 +13,9 @@
     :root {
       --cell-size: 160px;
       --cell-gap: 4px;
-      --num-rows: 5;
+      --num-rows: 4;
       --wall-height: calc(var(--cell-size) * var(--num-rows) + var(--cell-gap) * (var(--num-rows) - 1));
-      --bench-height: 220px;
+      --bench-height: 190px;
     }
 
     /* ── HERO ── */
@@ -200,8 +200,8 @@
     }
     .bench-img {
       display: block;
-      width: 68%;
-      max-width: 820px;
+      width: 76%;
+      max-width: 920px;
       filter: none;
       position: absolute;
       bottom: 0;
@@ -474,7 +474,7 @@
 
       // ── FACE WALL ──
       const wall = document.getElementById('faceWall');
-      const numRows = 5;
+      const numRows = 4;
       const rowEls = [];
       for (let r = 0; r < numRows; r++) {
         const row = document.createElement('div');
