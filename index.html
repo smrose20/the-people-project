@@ -91,6 +91,8 @@
       flex: 1 1 auto;
       overflow: hidden;
       min-height: 0;
+      margin-bottom: -180px;
+      z-index: 1;
     }
 
     /* Left/right fades */
@@ -108,6 +110,7 @@
       flex-direction: column;
       gap: 4px;
       padding: 4px 0;
+      z-index: 1;
     }
 
     .face-row {
@@ -156,7 +159,7 @@
       text-overflow: ellipsis;
     }
 
-    /* Past 5 label cell */
+    /* Latest Entries label cell */
     .past-label-cell {
       flex: 0 0 auto;
       background: #111;
@@ -166,28 +169,31 @@
       justify-content: center;
       padding: 8px;
       cursor: default;
+      min-width: 90px;
     }
     .past-label-cell p {
-      font-size: 8px; font-weight: 700; letter-spacing: 0.16em;
-      text-transform: uppercase; color: #fff; text-align: center; line-height: 1.6;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: #fff; text-align: center; line-height: 1.8;
     }
 
     /* Bench pinned to very bottom of viewport */
     .bench-wrap {
       position: relative;
-      z-index: 20;
-      background: #fff;
+      z-index: 30;
+      background: transparent;
       display: flex;
       justify-content: center;
       align-items: flex-end;
       flex: 0 0 auto;
-      margin-bottom: -60px;
+      height: 220px;
     }
     .bench-img {
       display: block;
       width: 42%;
       max-width: 500px;
       filter: none;
+      position: absolute;
+      bottom: 0;
     }
 
     /* ── ALL ENTRIES PAGE ── */
@@ -457,7 +463,7 @@
 
       // ── FACE WALL ──
       const wall = document.getElementById('faceWall');
-      const numRows = 5;
+      const numRows = 6;
       const rowEls = [];
       for (let r = 0; r < numRows; r++) {
         const row = document.createElement('div');
@@ -476,17 +482,22 @@
           row.style.height = cellH + 'px';
 
           if (r === 0) {
-            // Label cell
-            const label = document.createElement('div');
-            label.className = 'past-label-cell';
-            label.style.width = cellH + 'px';
-            label.innerHTML = `<p>Latest<br>Entries</p>`;
-            row.appendChild(label);
-            // Latest 10
+            // Latest 10 scroll, label stays pinned on top
             latest10.forEach(p => row.appendChild(makeCell(p, cellH)));
-            // Fill
             const sh = shuffle(people);
             for (let i = 0; i < needed; i++) row.appendChild(makeCell(sh[i%sh.length], cellH));
+            // Pinned label overlaid on top of row
+            const label = document.createElement('div');
+            label.className = 'past-label-cell';
+            label.style.cssText = `
+              position: absolute;
+              left: 0;
+              width: 100px;
+              height: ${cellH}px;
+              z-index: 15;
+            `;
+            label.innerHTML = `<p>Latest<br>Entries</p>`;
+            wall.appendChild(label);
           } else {
             const sh = shuffle(people);
             for (let i = 0; i < needed; i++) row.appendChild(makeCell(sh[i%sh.length], cellH));
